@@ -32,6 +32,7 @@ class AddDepartmentsHandler:
         self._mediator = mediator
 
     def handle(self, departments_command: AddDepartmentsCommand) -> None:
+        self._logger.info("command received for add department")
         department_data = []
         for department_command in departments_command.departments_list:
             department_command: DepartmentCommand
@@ -48,6 +49,7 @@ class AddDepartmentsHandler:
         try:
             with self._entity_repository.session_scope() as session:
                 self._entity_repository.add_entities(department_data, session=session)
+            self._logger.info("command for add department completed success")
             return [self._dto_mapper.map_department_dto(department) for department in department_data]
         except sqlalchemy.exc.IntegrityError as e:
             if e.orig.pgcode == UNIQUE_VIOLATION:

@@ -30,6 +30,7 @@ class AddLocationsHandler:
         self._mediator = mediator
 
     def handle(self, locations_command: AddLocationsCommand) -> None:
+        self._logger.info("command received for add location")
         location_data = []
         for location_command in locations_command.locations_list:
             location_command: AddLocationCommand
@@ -44,8 +45,8 @@ class AddLocationsHandler:
         try:
             with self._location_repository.session_scope() as session:
                 self._location_repository.add_entities(location_data, session=session)
+            self._logger.info("command for add location completed successfully")
             return [self._location_mapper.map_location_dto(location) for location in location_data]
-
         except sqlalchemy.exc.IntegrityError as e:
             if e.orig.pgcode == UNIQUE_VIOLATION:
                 starts = str(e.orig.args).find("=") + 2

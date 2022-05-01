@@ -19,9 +19,11 @@ class DeleteDepartmentHandler:
         self._mediator = mediator
 
     def handle(self, department: DeleteDepartmentCommand) -> bool:
+        self._logger.info("command received for delete department")
         with self._entity_repository.session_scope() as session:
             if self._entity_repository.delete_department(department_id=department.department_id,
                                                          location_id=department.location_id, session=session) == 0:
                 raise BakeryException(message="Department with this id does not exist",
                                       status_code=HTTP_400_BAD_REQUEST)
+        self._logger.info("command for delete department completed successfully")
         return True

@@ -26,6 +26,7 @@ class UpdateLocationsHandler:
         self._mediator = mediator
 
     def handle(self, location_command: UpdateLocationCommand) -> LocationDTO:
+        self._logger.info("command received for update location")
         try:
             with self._location_repository.session_scope() as session:
                 location = self._location_repository.get_entity(entity=Location,entity_id=location_command.location_id, session=session)
@@ -34,6 +35,7 @@ class UpdateLocationsHandler:
                     location.description = location_command.location_description
                     # update updated by also
                     self._location_repository.update_entity(entity=location, session=session)
+                    self._logger.info("command for update location completed successfully")
                     return self._location_mapper.map_location_dto(location)
                 else:
                     raise BakeryException(message="Location not found", status_code=HTTP_400_BAD_REQUEST)

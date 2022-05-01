@@ -28,7 +28,9 @@ class DeleteLocationsHandler:
         self._mediator = mediator
 
     def handle(self, location: DeleteLocationCommand) -> bool:
+        self._logger.info("command received for delete location")
         with self._location_repository.session_scope() as session:
             if self._location_repository.delete_entity(Location, location.location_id, session=session) == 0:
                 raise BakeryException(message="location with this id does not exist", status_code=HTTP_400_BAD_REQUEST)
+        self._logger.info("command for delete location completed successfully")
         return True

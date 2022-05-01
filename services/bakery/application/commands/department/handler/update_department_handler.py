@@ -26,6 +26,7 @@ class UpdateDepartmentHandler:
         self._mediator = mediator
 
     def handle(self, department_command: UpdateDepartmentCommand) -> DepartmentDTO:
+        self._logger.info("command received for update department")
         try:
             with self._entity_repository.session_scope() as session:
                 department = self._entity_repository.get_entity(Department,department_command.department_id, session=session)
@@ -34,6 +35,7 @@ class UpdateDepartmentHandler:
                     department.description = department_command.department_description
                     # update updated by also
                     self._entity_repository.update_entity(entity=department, session=session)
+                    self._logger.info("command for update department completed")
                     return self._dto_mapper.map_location_dto(department)
                 else:
                     raise BakeryException(message="Department not found", status_code=HTTP_400_BAD_REQUEST)
