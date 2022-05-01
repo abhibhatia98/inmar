@@ -9,7 +9,7 @@ from fastapi import Request
 from bakery.application.exception.bakery_exception import BakeryException
 from bakery.constant import Constant
 from shared.application.middleware import generic_exception_logging
-from shared.application.middleware.azure_request_logging import azure_request_logging
+from shared.application.middleware.azure_request_logging import request_logging
 from shared.logging.logger import Logger
 from shared.reader.config_reader import ConfigReader
 from shared.integration.mediator import Mediator
@@ -54,9 +54,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# adding request logging and generic exception logging
-# app.middleware('http')(azure_request_logging)
-# app.exception_handler(Exception)(generic_exception_logging.exception_callback)
+app.middleware('http')(request_logging)
+app.exception_handler(Exception)(generic_exception_logging.exception_callback)
 
-# from  bakery import  middleware
 Mediator.injector = injector

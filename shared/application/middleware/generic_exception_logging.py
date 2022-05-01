@@ -8,12 +8,5 @@ logger = logging.getLogger('shared.logging.logger')  # the class is singleton an
 
 
 async def exception_callback(request: Request, exc: Exception):
-    pass
-    # custom_dimension = CustomDimension(trace_id=request.headers.get('trace_id'),
-    #                                    organization_id=request.path_params.get("organization_id", "UNPROTECTED_ROUTE"),
-    #                                    project_id=request.path_params.get("project_id", "PROJECT_ID_NA"),
-    #                                    master_category_id=request.path_params.get("category_id", "MASTER_CATEGORY_ID_NA"),
-    #                                    request_url=str(request.url))
-    # logg_props = LoggingProperties(custom_dimensions=custom_dimension)
-    # logger.exception("EXCEPTION", extra=logg_props.dict())
-    # return JSONResponse({"detail": "Internal server error"}, status_code=HTTP_500_INTERNAL_SERVER_ERROR)
+    logger.exception(exc)
+    return JSONResponse({"detail": "Internal server error"}, status_code=HTTP_500_INTERNAL_SERVER_ERROR)
