@@ -4,7 +4,6 @@ from sqlalchemy import asc
 from bakery.application.core.dto_mapper import DTOMapper
 from bakery.application.queries.query_base import QueryBase
 from bakery.domain.model.location import Location
-from shared.application.custom_types.oid import OID
 from shared.logging.logger import Logger
 
 
