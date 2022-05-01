@@ -29,6 +29,11 @@ class UpdateDepartmentHandler:
         self._mediator = mediator
 
     def handle(self, category_command: UpdateCategoryCommand) -> CategoryDTO:
+        """
+        responsible for updating categories to a department
+        :param category_command:
+        :return:
+        """
         try:
             with self._entity_repository.session_scope() as session:
                 category = self._entity_repository.get_entity(Category, category_command.category_id, session=session)

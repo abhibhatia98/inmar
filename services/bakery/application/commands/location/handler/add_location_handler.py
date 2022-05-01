@@ -30,6 +30,11 @@ class AddLocationsHandler:
         self._mediator = mediator
 
     def handle(self, locations_command: AddLocationsCommand) -> None:
+        """
+        responsible for adding locations
+        :param locations_command:
+        :return:
+        """
         self._logger.info("command received for add location")
         location_data = []
         for location_command in locations_command.locations_list:

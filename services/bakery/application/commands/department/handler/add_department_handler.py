@@ -32,6 +32,11 @@ class AddDepartmentsHandler:
         self._mediator = mediator
 
     def handle(self, departments_command: AddDepartmentsCommand) -> None:
+        """
+        responsible for adding departments to a location
+        :param departments_command:
+        :return:
+        """
         self._logger.info("command received for add department")
         department_data = []
         for department_command in departments_command.departments_list:

@@ -30,6 +30,11 @@ class AddDepartmentsHandler:
         self._mediator = mediator
 
     def handle(self, add_category_command: AddCategoryCommand) -> None:
+        """
+        responsible for adding categories to a department
+        :param add_category_command:
+        :return:
+        """
         category_data = []
         for category_command in add_category_command.category_list:
             category_command: CategoryCommand

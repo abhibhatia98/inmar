@@ -20,6 +20,11 @@ class DeleteDepartmentHandler:
         self._mediator = mediator
 
     def handle(self, category: DeleteCategoryCommand) -> bool:
+        """
+        responsible for deleting categories to a department
+        :param category:
+        :return:
+        """
         with self._entity_repository.session_scope() as session:
             if self._entity_repository.delete_category(category_id=category.category_id,department_id=category.department_id,
                                                        location_id=category.location_id, session=session) == 0:

@@ -28,6 +28,11 @@ class DeleteLocationsHandler:
         self._mediator = mediator
 
     def handle(self, location: DeleteLocationCommand) -> bool:
+        """
+        responsible for deleting locations
+        :param location:
+        :return:
+        """
         self._logger.info("command received for delete location")
         with self._location_repository.session_scope() as session:
             if self._location_repository.delete_entity(Location, location.location_id, session=session) == 0:

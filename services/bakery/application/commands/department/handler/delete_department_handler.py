@@ -19,6 +19,11 @@ class DeleteDepartmentHandler:
         self._mediator = mediator
 
     def handle(self, department: DeleteDepartmentCommand) -> bool:
+        """
+        responsible for deleting a department
+        :param department:
+        :return:
+        """
         self._logger.info("command received for delete department")
         with self._entity_repository.session_scope() as session:
             if self._entity_repository.delete_department(department_id=department.department_id,

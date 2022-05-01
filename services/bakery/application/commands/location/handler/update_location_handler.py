@@ -26,6 +26,11 @@ class UpdateLocationsHandler:
         self._mediator = mediator
 
     def handle(self, location_command: UpdateLocationCommand) -> LocationDTO:
+        """
+        responsible for updating locations
+        :param location_command:
+        :return:
+        """
         self._logger.info("command received for update location")
         try:
             with self._location_repository.session_scope() as session:

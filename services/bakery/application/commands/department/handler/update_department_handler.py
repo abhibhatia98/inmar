@@ -26,6 +26,11 @@ class UpdateDepartmentHandler:
         self._mediator = mediator
 
     def handle(self, department_command: UpdateDepartmentCommand) -> DepartmentDTO:
+        """
+        responsible for updating a department in a location
+        :param department_command:
+        :return:
+        """
         self._logger.info("command received for update department")
         try:
             with self._entity_repository.session_scope() as session:
