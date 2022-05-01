@@ -14,7 +14,7 @@ from bakery.application.queries.category_queries import CategoriesQueries
 from bakery.application.queries.department_queries import DepartmentQueries
 from bakery.application.queries.location_queries import LocationQueries
 from bakery_api import router, injector
-# from shared.authorization.auth import auth_required
+from shared.authorization.auth import auth_required
 #
 from shared.integration.mediator import Mediator
 
@@ -26,12 +26,15 @@ mediator = injector.get(Mediator)
 
 
 @router.get("/location", status_code=status.HTTP_200_OK)
+@auth_required()
 def get_location(request: Request, context=None, page_size=10, skip=0):
     return location_queries.get_locations(page_size=page_size, skip=skip)
 
 
 @router.post("/location", status_code=status.HTTP_200_OK)
 def add_location(request: Request, command: AddLocationsCommand, context=None):
+#     command.set_context(context)
+#     command.set_created_by(context.user)
     return mediator.send(command)
 
 

@@ -3,6 +3,7 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 from injector import Injector
 from starlette.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 from bakery.application.exception.bakery_exception import BakeryException
 from shared.application.middleware import generic_exception_logging
@@ -18,6 +19,9 @@ router = APIRouter(
 
 app = FastAPI(title='Bakery API',
               description='API ENDPOINTS')
+
+
+security = HTTPBasic()
 
 from bakery_api.controller import ka_router
 
