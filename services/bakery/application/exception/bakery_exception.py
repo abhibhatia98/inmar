@@ -1,4 +1,3 @@
-from shared.application.error.error_message import ErrorMessage
 
 
 class BakeryException(Exception):

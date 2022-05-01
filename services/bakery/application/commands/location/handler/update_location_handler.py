@@ -4,10 +4,10 @@ from psycopg2.errorcodes import UNIQUE_VIOLATION
 from starlette.status import HTTP_400_BAD_REQUEST
 
 from bakery.application.commands.location.update_location_command import UpdateLocationCommand
-from bakery.application.core.location_mapper import LocationMapper
+from bakery.application.core.dto_mapper import DTOMapper
 from bakery.application.dto.location_dto import LocationDTO
 from bakery.application.exception.bakery_exception import BakeryException
-from bakery.infrastructure.repositories.location_repository import LocationRepository
+from bakery.infrastructure.repositories.entity_repository import EntityRepository
 from shared.integration.mediator import Mediator
 from shared.logging.logger import Logger
 
@@ -17,7 +17,7 @@ from shared.logging.logger import Logger
 class UpdateLocationsHandler:
 
     @inject
-    def __init__(self, location_repository: LocationRepository, logger: Logger, location_mapper: LocationMapper,
+    def __init__(self, location_repository: EntityRepository, logger: Logger, location_mapper: DTOMapper,
                  mediator: Mediator):
         self._location_mapper = location_mapper
         self._location_repository = location_repository
@@ -27,12 +27,12 @@ class UpdateLocationsHandler:
     def handle(self, location_command: UpdateLocationCommand) -> LocationDTO:
         try:
             with self._location_repository.session_scope() as session:
-                location = self._location_repository.get_location(location_command.location_id, session=session)
+                location = self._location_repository.get_entity(location_command.location_id, session=session)
                 if location:
                     location.name = location_command.location_name
                     location.description = location_command.location_description
                     # update updated by also
-                    self._location_repository.update_location(location=location, session=session)
+                    self._location_repository.update_entity(entity=location, session=session)
                     return self._location_mapper.map_location_dto(location)
                 else:
                     raise BakeryException(message="Location not found", status_code=HTTP_400_BAD_REQUEST)

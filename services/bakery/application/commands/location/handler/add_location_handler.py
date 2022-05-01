@@ -7,11 +7,11 @@ from psycopg2 import errors
 from starlette.status import HTTP_400_BAD_REQUEST
 
 from bakery.application.commands.location.add_location_command import AddLocationsCommand, AddLocationCommand
-from bakery.application.core.location_mapper import LocationMapper
+from bakery.application.core.dto_mapper import DTOMapper
 from bakery.application.exception.bakery_exception import BakeryException
 from bakery.domain.entity import EntityOperationStatus
 from bakery.domain.model.location import Location
-from bakery.infrastructure.repositories.location_repository import LocationRepository
+from bakery.infrastructure.repositories.entity_repository import EntityRepository
 from shared.integration.mediator import Mediator
 from shared.logging.logger import Logger
 from shared.util.datetime import now
@@ -22,7 +22,7 @@ from shared.util.datetime import now
 class AddLocationsHandler:
 
     @inject
-    def __init__(self, location_repository: LocationRepository, location_mapper: LocationMapper, logger: Logger,
+    def __init__(self, location_repository: EntityRepository, location_mapper: DTOMapper, logger: Logger,
                  mediator: Mediator):
         self._location_mapper = location_mapper
         self._location_repository = location_repository
@@ -43,7 +43,7 @@ class AddLocationsHandler:
             location_data.append(location)
         try:
             with self._location_repository.session_scope() as session:
-                self._location_repository.add_locations(location_data, session=session)
+                self._location_repository.add_entities(location_data, session=session)
             return [self._location_mapper.map_location_dto(location) for location in location_data]
 
         except sqlalchemy.exc.IntegrityError as e:
