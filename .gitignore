@@ -110,9 +110,7 @@ deploy/
 /samplepptx.pptx
 /services/multimedia_functions/media_processor/ffmpeg_lib/
 *ffmpeg*
-/Endee.AI_business_re.docx
 /sample.docx
-/.env.indexer.endee.local
 /.env.search.local
 /.env.search_de.local
 /.env.search_integration.local

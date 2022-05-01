@@ -2,9 +2,6 @@
     """
 import logging
 
-# from shared.constant.config_keys import ConfigKey
-from shared.logging.logging_properties import LoggingProperties
-# from opencensus.ext.azure.log_exporter import AzureLogHandler, AzureEventHandler
 from injector import singleton, inject
 
 from shared.reader.config_reader import ConfigReader
@@ -16,22 +13,9 @@ class Logger:
     """
 
     @inject
-    def __init__(self, log_instrumentation_key: str = None):
-        # logging.basicConfig(format='%(asctime)s:level=%(levelname)s:%(message)s')
+    def __init__(self):
         logger = logging.getLogger(__name__)
-        try:
-            log_level = ConfigReader.read_config_parameter("log_level")
-            if log_level.casefold() == "info":
-                log_level = logging.INFO
-            elif log_level.casefold() == "debug":
-                log_level = logging.DEBUG
-            elif log_level.casefold() == "error":
-                log_level = logging.ERROR
-            elif log_level.casefold() == "warning":
-                log_level = logging.WARNING
-        except KeyError:
-            log_level = logging.ERROR
-        logger.setLevel(level=log_level)
+        logger.setLevel(level=logging.INFO)
         self._logger = logger
 
     def info(self, message):

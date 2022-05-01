@@ -2,7 +2,6 @@ from typing import Optional
 
 from shared.authorization.context import Context
 from pydantic import BaseModel
-from shared.logging.logging_properties import LoggingProperties
 
 
 class CommandBase(BaseModel):
