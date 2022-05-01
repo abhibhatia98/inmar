@@ -1,0 +1,125 @@
+*.py[cod]
+.idea/*
+.vs/
+services/identity/function/.venv
+.coverage
+.ipynb_checkpoints/*
+dump.rdb
+/data/*
+/logs/*
+env/*
+venv/*
+virtual/*
+frontend/yarn.lock
+lvenv
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+lvenv
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+services/identity/.idea/
+.idea/*
+*.iws
+*.iml
+*.ipr
+
+
+### VS Code ###
+
+*.swp
+package-lock.json
+__pycache__
+.pytest_cache
+# .env
+*.egg-info
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+build/
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.prettierrc
+temp.js
+
+temp.js
+
+deploy/
+/services/indexer/weights/dpr-ctx_encoder-single-nq-base/
+/services/indexer/weights/dpr-question_encoder-single-nq-base/
+/services/indexer/weights/
+/retriever_models/
+/mlruns/
+*kbs_file.txt
+/services/multimedia_old/
+/services/multimedia_functions/media_processor_old/
+/models/
+/models_de/
+/models_en/
+/services/multimedia_functions/thumbnail_generator/samplepptx.pptx
+/services/multimedia_functions/thumbnail_generator/ticket.pdf
+/send_message.py
+/main_thumbnail.py
+/delete_queue_poll.py
+/main_indexer_send_message.py
+/message.txt
+/ab.txt
+/main_delete_documents.py
+!/main_search_gateway_api.py
+!/main_search_gateway_api.py
+!/main_search_gateway_api.py
+/.env.thumbnail.local
+/blob_upload_file.py
+/services/multimedia_functions/thumbnail_generator/New Microsoft Word Document.docx
+/samplepptx.pptx
+/services/multimedia_functions/media_processor/ffmpeg_lib/
+*ffmpeg*
+/Endee.AI_business_re.docx
+/sample.docx
+/.env.indexer.endee.local
+/.env.search.local
+/.env.search_de.local
+/.env.search_integration.local
+/env.search.local
+/main_indexer.py
+/main_search_de.py
+/main_search_en.py
+/main_search_integration.py
+
+/local/*
