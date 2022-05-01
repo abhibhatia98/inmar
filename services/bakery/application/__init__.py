@@ -1,0 +1,1 @@
+from bakery.application.commands.location import handler
