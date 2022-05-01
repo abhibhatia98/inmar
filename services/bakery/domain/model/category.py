@@ -1,29 +1,19 @@
-from bson import ObjectId
-from mongoengine import *
-from pymongo.common import validate
-
+from sqlalchemy import Column, DateTime, String, UniqueConstraint, ForeignKey
 from bakery.domain.entity import Entity
 
 
 class Category(Entity):
-    id = ObjectIdField(primary_key=True)
-    department_id = ObjectIdField(required=True)
-    name = StringField(required=True)
-    description = StringField(required=False)
-    updated_on = DateTimeField(required=True)
-    updated_by = StringField(required=True)
-    created_on = DateTimeField(required=True)
-    created_by = ObjectIdField(required=True)
+    __tablename__ = "category"
+    id = Column(String, primary_key=True)
+    location_id = Column(String,ForeignKey("location.id"), nullable=False)
+    department_id = Column(String,ForeignKey("department.id"), nullable=False)
+    name = Column(String)
+    description = Column(String)
+    updated_on = Column(DateTime())
+    updated_by = Column(String)
+    created_on = Column(DateTime())
+    created_by = Column(String)
 
-    # def __init__(self, *args, **values):
-    #     super().__init__(*args, **values)
-
-    meta = {
-        # 'collection': 'master_category',
-        'indexes': [
-            {
-                'fields': ['department_id', 'name'],
-                'unique': True
-            }
-        ]
-    }
+    __table_args__ = (
+        UniqueConstraint("department_id", "name", name="unique_category_name"),
+    )

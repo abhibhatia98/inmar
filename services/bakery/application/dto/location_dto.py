@@ -7,4 +7,4 @@ class LocationDTO(DTO):
         self.location_id = location_id
         self.location_name = location_name
         self.description = description
-        self.updated_by = str(updated_by)
+        self.updated_by = updated_by

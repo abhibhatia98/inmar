@@ -29,6 +29,6 @@ class DeleteLocationsHandler:
 
     def handle(self, location: DeleteLocationCommand) -> bool:
         with self._location_repository.session_scope() as session:
-            if self._location_repository.delete_entity(Location,location.location_id, session=session) == 0:
+            if self._location_repository.delete_entity(Location, location.location_id, session=session) == 0:
                 raise BakeryException(message="location with this id does not exist", status_code=HTTP_400_BAD_REQUEST)
         return True

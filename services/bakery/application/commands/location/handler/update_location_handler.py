@@ -7,6 +7,7 @@ from bakery.application.commands.location.update_location_command import UpdateL
 from bakery.application.core.dto_mapper import DTOMapper
 from bakery.application.dto.location_dto import LocationDTO
 from bakery.application.exception.bakery_exception import BakeryException
+from bakery.domain.model.location import Location
 from bakery.infrastructure.repositories.entity_repository import EntityRepository
 from shared.integration.mediator import Mediator
 from shared.logging.logger import Logger
@@ -27,7 +28,7 @@ class UpdateLocationsHandler:
     def handle(self, location_command: UpdateLocationCommand) -> LocationDTO:
         try:
             with self._location_repository.session_scope() as session:
-                location = self._location_repository.get_entity(location_command.location_id, session=session)
+                location = self._location_repository.get_entity(entity=Location,entity_id=location_command.location_id, session=session)
                 if location:
                     location.name = location_command.location_name
                     location.description = location_command.location_description

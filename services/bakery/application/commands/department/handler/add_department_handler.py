@@ -2,7 +2,7 @@ import psycopg2
 import sqlalchemy.exc
 from bson import ObjectId
 from injector import singleton, inject
-from psycopg2.errorcodes import UNIQUE_VIOLATION
+from psycopg2.errorcodes import UNIQUE_VIOLATION, FOREIGN_KEY_VIOLATION
 from psycopg2 import errors
 from starlette.status import HTTP_400_BAD_REQUEST
 
@@ -48,11 +48,14 @@ class AddDepartmentsHandler:
         try:
             with self._entity_repository.session_scope() as session:
                 self._entity_repository.add_entities(department_data, session=session)
-            return [self._dto_mapper.map_location_dto(department) for department in department_data]
-
+            return [self._dto_mapper.map_department_dto(department) for department in department_data]
         except sqlalchemy.exc.IntegrityError as e:
             if e.orig.pgcode == UNIQUE_VIOLATION:
                 starts = str(e.orig.args).find("=") + 2
                 ends = str(e.orig.args)[starts:].find(")")
                 message = "location with name " + str(e.orig.args)[starts:starts + ends] + " already exist"
                 raise BakeryException(message=message, status_code=HTTP_400_BAD_REQUEST)
+            if e.orig.pgcode == FOREIGN_KEY_VIOLATION:
+                raise BakeryException(message="Please provided correct location information",
+                                      status_code=HTTP_400_BAD_REQUEST)
+
